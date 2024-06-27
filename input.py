@@ -8,7 +8,13 @@ from data import style_models_dict, content_images_dict, content_images_name
 
 def image_input(style_model_name):
     style_model_path = style_models_dict[style_model_name]
-    model = get_model_from_path(style_model_path)
+
+    # Add error handling for model loading
+    try:
+        model = get_model_from_path(style_model_path)
+    except cv2.error as e:
+        st.error(f"Failed to load the model from {style_model_path}: {e}")
+        return
 
     if st.sidebar.checkbox('Upload'):
         content_file = st.sidebar.file_uploader("Choose a Content Image", type=["png", "jpg", "jpeg"])
@@ -21,7 +27,7 @@ def image_input(style_model_name):
         content = np.array(content)  # Convert PIL image to OpenCV image
         content = cv2.cvtColor(content, cv2.COLOR_RGB2BGR)
     else:
-        st.warning("Upload an Image OR Untick the Upload Button)")
+        st.warning("Upload an Image OR Untick the Upload Button")
         st.stop()
 
     WIDTH = st.sidebar.select_slider('QUALITY (May reduce the speed)', list(range(150, 501, 50)), value=200)
