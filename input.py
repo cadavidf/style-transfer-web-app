@@ -12,7 +12,7 @@ def image_input(style_model_name):
     # Add error handling for model loading
     try:
         model = get_model_from_path(style_model_path)
-    except cv2.error as e:
+    except RuntimeError as e:
         st.error(f"Failed to load the model from {style_model_path}: {e}")
         return
 
