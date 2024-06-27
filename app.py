@@ -2,7 +2,7 @@ import streamlit as st
 from data import style_models_name
 from input import image_input
 
-st.title("Neural Style Transfer")
+st.title("Lab House Ai Technical Test")
 st.sidebar.title('Navigation')
 method = st.sidebar.radio('Go To ->', options=['Image'])
 st.sidebar.header('Options')
